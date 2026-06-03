@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  pg_vector_db:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: cmp653_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: benchmark_db
+    ports:
+      - "5432:5432"
+    command: postgres -c shared_buffers=4GB -c max_connections=200
+    deploy:
+      resources:
+        limits:
+          cpus: '8.0'
+          memory: 16G
+    restart: unless-stopped

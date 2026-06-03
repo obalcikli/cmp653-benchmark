@@ -1,0 +1,13 @@
+# Python
+data_prep/.venv/
+__pycache__/
+
+# C++ Build & Binaries
+src/CMakeCache.txt
+src/CMakeFiles/
+src/Makefile
+src/cmake_install.cmake
+src/benchmark_harness
+
+# OS
+.DS_Store
