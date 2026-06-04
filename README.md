@@ -51,7 +51,7 @@ make
 ./benchmark_harness
 ```
 
-## 📊 Initial Findings
+## Initial Findings
 
 > These results were obtained under the constrained environment described above (WSL2 / Docker, 8-vCPU). Full methodology and statistical analysis are pending.
 
