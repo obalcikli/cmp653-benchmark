@@ -50,3 +50,20 @@ make
 ```bash
 ./benchmark_harness
 ```
+
+## 📊 Initial Findings
+
+> These results were obtained under the constrained environment described above (WSL2 / Docker, 8-vCPU). Full methodology and statistical analysis are pending.
+
+| Metric | PostgreSQL 16 (pgvector) | Pinecone (Serverless) |
+|---|---|---|
+| **Throughput** | ~805 QPS | ~2.9 QPS |
+| **Environment** | Local (WSL2 / Docker) | Cloud (AWS us-east-1) |
+| **Primary Bottleneck** | MVCC / WAL contention | HTTP/2 latency + Rate limits |
+| **Connection** | libpq Native TCP/IP | libcurl REST (Exponential Backoff) |
+
+### Key Observations
+
+* **PostgreSQL** sustains ~805 QPS despite heavy relational `UPDATE` contention on shared memory, demonstrating the efficiency of native TCP/IP with `libpq` under local constraints.
+* **Pinecone** is severely bottlenecked at ~2.9 QPS on the Free Tier — not due to vector search performance, but due to HTTP/2 network overhead and `429` rate limit responses requiring exponential backoff.
+* The ~277x throughput gap reflects a **fundamental architectural difference**: shared-memory local execution vs. decoupled cloud-native REST API — rather than a direct quality-of-search comparison.
