@@ -49,6 +49,7 @@ make
 **3. Execute the Benchmark:**
 ```bash
 ./benchmark_harness
+./latency_benchmark
 ```
 
 ## Initial Findings
